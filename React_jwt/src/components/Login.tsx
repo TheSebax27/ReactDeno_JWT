@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Lock, Mail, Eye, EyeOff, LogIn, Shield } from 'lucide-react';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -9,7 +8,7 @@ export const Login = () => {
   const [error, setError] = useState('');
   const { login, loading } = useAuth();
 
-  const handleSubmit = async (e: React.MouseEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
@@ -24,110 +23,244 @@ export const Login = () => {
     }
   };
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-4">
-      {/* Elementos de fondo animados */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-10 -left-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-        <div className="absolute -bottom-10 -right-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse animation-delay-2000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse animation-delay-4000"></div>
-      </div>
+  const styles = {
+    container: {
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      padding: '1rem',
+      fontFamily: 'Arial, sans-serif'
+    },
+    card: {
+      backgroundColor: 'rgba(255, 255, 255, 0.95)',
+      borderRadius: '20px',
+      boxShadow: '0 25px 50px rgba(0, 0, 0, 0.25)',
+      padding: '2rem',
+      width: '100%',
+      maxWidth: '400px',
+      backdropFilter: 'blur(10px)',
+      border: '1px solid rgba(255, 255, 255, 0.2)'
+    },
+    header: {
+      textAlign: 'center' as const,
+      marginBottom: '2rem'
+    },
+    logo: {
+      width: '60px',
+      height: '60px',
+      backgroundColor: '#667eea',
+      borderRadius: '50%',
+      margin: '0 auto 1rem',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      color: 'white',
+      fontSize: '24px',
+      fontWeight: 'bold'
+    },
+    title: {
+      fontSize: '2rem',
+      fontWeight: 'bold',
+      color: '#333',
+      marginBottom: '0.5rem',
+      background: 'linear-gradient(135deg, #667eea, #764ba2)',
+      WebkitBackgroundClip: 'text',
+      WebkitTextFillColor: 'transparent'
+    },
+    subtitle: {
+      color: '#666',
+      fontSize: '0.9rem'
+    },
+    form: {
+      display: 'flex',
+      flexDirection: 'column' as const,
+      gap: '1.5rem'
+    },
+    inputGroup: {
+      position: 'relative' as const
+    },
+    inputIcon: {
+      position: 'absolute' as const,
+      left: '12px',
+      top: '50%',
+      transform: 'translateY(-50%)',
+      color: '#888',
+      fontSize: '18px'
+    },
+    input: {
+      width: '100%',
+      padding: '12px 12px 12px 45px',
+      border: '2px solid #e1e1e1',
+      borderRadius: '12px',
+      fontSize: '1rem',
+      outline: 'none',
+      transition: 'all 0.3s ease',
+      backgroundColor: 'rgba(255, 255, 255, 0.8)',
+      boxSizing: 'border-box' as const
+    },
+    inputFocus: {
+      borderColor: '#667eea',
+      boxShadow: '0 0 0 3px rgba(102, 126, 234, 0.1)'
+    },
+    passwordToggle: {
+      position: 'absolute' as const,
+      right: '12px',
+      top: '50%',
+      transform: 'translateY(-50%)',
+      background: 'none',
+      border: 'none',
+      cursor: 'pointer',
+      color: '#888',
+      fontSize: '18px',
+      padding: '4px'
+    },
+    button: {
+      width: '100%',
+      padding: '14px',
+      background: 'linear-gradient(135deg, #667eea, #764ba2)',
+      color: 'white',
+      border: 'none',
+      borderRadius: '12px',
+      fontSize: '1rem',
+      fontWeight: '600',
+      cursor: 'pointer',
+      transition: 'all 0.3s ease',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: '8px'
+    },
+    buttonHover: {
+      transform: 'translateY(-2px)',
+      boxShadow: '0 10px 25px rgba(102, 126, 234, 0.3)'
+    },
+    buttonDisabled: {
+      opacity: 0.6,
+      cursor: 'not-allowed',
+      transform: 'none'
+    },
+    error: {
+      backgroundColor: '#fee',
+      border: '1px solid #fcc',
+      color: '#c33',
+      padding: '12px',
+      borderRadius: '8px',
+      fontSize: '0.9rem',
+      marginBottom: '1rem'
+    },
+    footer: {
+      marginTop: '1.5rem',
+      textAlign: 'center' as const,
+      color: '#888',
+      fontSize: '0.8rem'
+    },
+    spinner: {
+      width: '20px',
+      height: '20px',
+      border: '2px solid rgba(255, 255, 255, 0.3)',
+      borderTop: '2px solid white',
+      borderRadius: '50%',
+      animation: 'spin 1s linear infinite'
+    }
+  };
 
-      {/* Container principal */}
-      <div className="relative w-full max-w-md">
-        {/* Glassmorphism card */}
-        <div className="backdrop-blur-xl bg-white/10 rounded-3xl shadow-2xl border border-white/20 p-8 transform hover:scale-105 transition-all duration-300">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full mb-4 animate-bounce">
-              <Shield className="w-8 h-8 text-white" />
-            </div>
-            <h1 className="text-3xl font-bold text-white mb-2 bg-gradient-to-r from-purple-300 to-blue-300 bg-clip-text text-transparent">
-              Bienvenido
-            </h1>
-            <p className="text-gray-300">Inicia sesión en tu cuenta</p>
+  return (
+    <div style={styles.container}>
+      <style>
+        {`
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+        `}
+      </style>
+      
+      <div style={styles.card}>
+        <div style={styles.header}>
+          <div style={styles.logo}>🔐</div>
+          <h1 style={styles.title}>Bienvenido</h1>
+          <p style={styles.subtitle}>Inicia sesión en tu cuenta</p>
+        </div>
+
+        {error && (
+          <div style={styles.error}>
+            {error}
+          </div>
+        )}
+
+        <form style={styles.form} onSubmit={handleSubmit}>
+          <div style={styles.inputGroup}>
+            <span style={styles.inputIcon}>📧</span>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Correo electrónico"
+              style={styles.input}
+              disabled={loading}
+              required
+            />
           </div>
 
-          {/* Error message */}
-          {error && (
-            <div className="mb-4 p-3 bg-red-500/20 border border-red-500/30 rounded-lg text-red-200 text-sm animate-shake">
-              {error}
-            </div>
-          )}
-
-          {/* Form */}
-          <div className="space-y-6">
-            {/* Email field */}
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Mail className="w-5 h-5 text-gray-400" />
-              </div>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Correo electrónico"
-                className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent backdrop-blur-sm transition-all duration-300 hover:bg-white/10"
-                disabled={loading}
-              />
-            </div>
-
-            {/* Password field */}
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Lock className="w-5 h-5 text-gray-400" />
-              </div>
-              <input
-                type={showPassword ? 'text' : 'password'}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Contraseña"
-                className="w-full pl-10 pr-12 py-3 bg-white/5 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent backdrop-blur-sm transition-all duration-300 hover:bg-white/10"
-                disabled={loading}
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                disabled={loading}
-              >
-                {showPassword ? (
-                  <EyeOff className="w-5 h-5 text-gray-400 hover:text-white transition-colors" />
-                ) : (
-                  <Eye className="w-5 h-5 text-gray-400 hover:text-white transition-colors" />
-                )}
-              </button>
-            </div>
-
-            {/* Submit button */}
-            <button
-              type="submit"
+          <div style={styles.inputGroup}>
+            <span style={styles.inputIcon}>🔒</span>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Contraseña"
+              style={{...styles.input, paddingRight: '45px'}}
               disabled={loading}
-              onClick={handleSubmit}
-              className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 disabled:from-gray-600 disabled:to-gray-600 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-transparent disabled:scale-100 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              style={styles.passwordToggle}
+              disabled={loading}
             >
-              {loading ? (
-                <>
-                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                  <span>Iniciando sesión...</span>
-                </>
-              ) : (
-                <>
-                  <LogIn className="w-5 h-5" />
-                  <span>Iniciar Sesión</span>
-                </>
-              )}
+              {showPassword ? '🙈' : '👁️'}
             </button>
           </div>
 
-          {/* Footer */}
-          <div className="mt-6 text-center text-gray-400 text-sm">
-            <p>Protegido con JWT Authentication</p>
-          </div>
-        </div>
+          <button
+            type="submit"
+            disabled={loading}
+            style={{
+              ...styles.button,
+              ...(loading ? styles.buttonDisabled : {})
+            }}
+            onMouseEnter={(e) => {
+              if (!loading) {
+                Object.assign(e.currentTarget.style, styles.buttonHover);
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (!loading) {
+                e.currentTarget.style.transform = 'none';
+                e.currentTarget.style.boxShadow = 'none';
+              }
+            }}
+          >
+            {loading ? (
+              <>
+                <div style={styles.spinner}></div>
+                <span>Iniciando sesión...</span>
+              </>
+            ) : (
+              <>
+                <span>🚀</span>
+                <span>Iniciar Sesión</span>
+              </>
+            )}
+          </button>
+        </form>
 
-        {/* Glow effect */}
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-purple-600/20 to-blue-600/20 rounded-3xl blur-xl"></div>
+        <div style={styles.footer}>
+          <p>Protegido con JWT Authentication</p>
+        </div>
       </div>
     </div>
   );

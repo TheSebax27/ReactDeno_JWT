@@ -1,24 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { authService } from '../services/authService';
-import { 
-  User, 
-  LogOut, 
-  Shield, 
-  CheckCircle, 
-  Clock, 
-  Activity,
-  Settings,
-  Bell,
-  Search,
-  BarChart3,
-  Users,
-  Lock
-} from 'lucide-react';
 
 export const Dashboard = () => {
   const { user, logout, token } = useAuth();
-  const [protectedData, setProtectedData] = useState(null);
+  const [protectedData, setProtectedData] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [stats] = useState({
     activeUsers: 1247,
@@ -49,229 +35,416 @@ export const Dashboard = () => {
     logout();
   };
 
+  const styles = {
+    container: {
+      minHeight: '100vh',
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      fontFamily: 'Arial, sans-serif'
+    },
+    header: {
+      backgroundColor: 'rgba(255, 255, 255, 0.95)',
+      backdropFilter: 'blur(10px)',
+      borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
+      padding: '1rem 0'
+    },
+    headerContent: {
+      maxWidth: '1200px',
+      margin: '0 auto',
+      padding: '0 1rem',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between'
+    },
+    logo: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '1rem'
+    },
+    logoIcon: {
+      width: '40px',
+      height: '40px',
+      backgroundColor: '#667eea',
+      borderRadius: '8px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      color: 'white',
+      fontSize: '20px'
+    },
+    logoText: {
+      fontSize: '1.5rem',
+      fontWeight: 'bold',
+      color: '#333'
+    },
+    userInfo: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '1rem'
+    },
+    userAvatar: {
+      width: '40px',
+      height: '40px',
+      backgroundColor: '#667eea',
+      borderRadius: '50%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      color: 'white',
+      fontSize: '16px'
+    },
+    userDetails: {
+      display: 'flex',
+      flexDirection: 'column' as const
+    },
+    userName: {
+      fontSize: '0.9rem',
+      fontWeight: '600',
+      color: '#333'
+    },
+    userEmail: {
+      fontSize: '0.8rem',
+      color: '#666'
+    },
+    main: {
+      maxWidth: '1200px',
+      margin: '0 auto',
+      padding: '2rem 1rem'
+    },
+    welcomeCard: {
+      backgroundColor: 'rgba(255, 255, 255, 0.95)',
+      borderRadius: '20px',
+      padding: '2rem',
+      marginBottom: '2rem',
+      boxShadow: '0 25px 50px rgba(0, 0, 0, 0.1)',
+      backdropFilter: 'blur(10px)',
+      border: '1px solid rgba(255, 255, 255, 0.2)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      flexWrap: 'wrap' as const,
+      gap: '1rem'
+    },
+    welcomeText: {
+      fontSize: '1.8rem',
+      fontWeight: 'bold',
+      color: '#333',
+      marginBottom: '0.5rem'
+    },
+    welcomeSubtext: {
+      color: '#666',
+      fontSize: '1rem'
+    },
+    logoutButton: {
+      backgroundColor: '#ff4757',
+      color: 'white',
+      border: 'none',
+      borderRadius: '10px',
+      padding: '12px 24px',
+      fontSize: '0.9rem',
+      fontWeight: '600',
+      cursor: 'pointer',
+      transition: 'all 0.3s ease',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '8px'
+    },
+    statsGrid: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+      gap: '1.5rem',
+      marginBottom: '2rem'
+    },
+    statCard: {
+      backgroundColor: 'rgba(255, 255, 255, 0.95)',
+      borderRadius: '15px',
+      padding: '1.5rem',
+      boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
+      backdropFilter: 'blur(10px)',
+      border: '1px solid rgba(255, 255, 255, 0.2)',
+      transition: 'transform 0.3s ease, box-shadow 0.3s ease'
+    },
+    statHeader: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginBottom: '1rem'
+    },
+    statTitle: {
+      fontSize: '0.9rem',
+      color: '#666',
+      fontWeight: '500'
+    },
+    statValue: {
+      fontSize: '2rem',
+      fontWeight: 'bold',
+      color: '#333'
+    },
+    statIcon: {
+      fontSize: '2rem'
+    },
+    contentGrid: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+      gap: '2rem'
+    },
+    contentCard: {
+      backgroundColor: 'rgba(255, 255, 255, 0.95)',
+      borderRadius: '20px',
+      padding: '2rem',
+      boxShadow: '0 25px 50px rgba(0, 0, 0, 0.1)',
+      backdropFilter: 'blur(10px)',
+      border: '1px solid rgba(255, 255, 255, 0.2)'
+    },
+    cardTitle: {
+      fontSize: '1.3rem',
+      fontWeight: 'bold',
+      color: '#333',
+      marginBottom: '1.5rem',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '0.5rem'
+    },
+    checkItem: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '0.5rem',
+      marginBottom: '0.8rem',
+      color: '#666'
+    },
+    checkIcon: {
+      color: '#27ae60',
+      fontSize: '1.2rem'
+    },
+    loadButton: {
+      backgroundColor: '#667eea',
+      color: 'white',
+      border: 'none',
+      borderRadius: '10px',
+      padding: '12px 24px',
+      fontSize: '0.9rem',
+      fontWeight: '600',
+      cursor: 'pointer',
+      transition: 'all 0.3s ease',
+      marginTop: '1rem'
+    },
+    successMessage: {
+      backgroundColor: '#d4edda',
+      border: '1px solid #c3e6cb',
+      color: '#155724',
+      padding: '12px',
+      borderRadius: '8px',
+      marginTop: '1rem',
+      fontSize: '0.9rem'
+    },
+    infoSection: {
+      display: 'flex',
+      flexDirection: 'column' as const,
+      gap: '1rem'
+    },
+    infoItem: {
+      backgroundColor: 'rgba(102, 126, 234, 0.1)',
+      padding: '1rem',
+      borderRadius: '10px',
+      border: '1px solid rgba(102, 126, 234, 0.2)'
+    },
+    infoTitle: {
+      fontSize: '0.9rem',
+      fontWeight: '600',
+      color: '#333',
+      marginBottom: '0.5rem'
+    },
+    infoValue: {
+      fontSize: '0.9rem',
+      color: '#666'
+    },
+    spinner: {
+      width: '20px',
+      height: '20px',
+      border: '2px solid rgba(102, 126, 234, 0.3)',
+      borderTop: '2px solid #667eea',
+      borderRadius: '50%',
+      animation: 'spin 1s linear infinite',
+      margin: '2rem auto'
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      {/* Background effects */}
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.05"%3E%3Ccircle cx="30" cy="30" r="1"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-40"></div>
-      
-      {/* Header */}
-      <header className="relative z-10 backdrop-blur-xl bg-white/5 border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo and title */}
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg">
-                <Shield className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-white">JWT Dashboard</h1>
-                <p className="text-xs text-gray-400">Secure Access Panel</p>
-              </div>
-            </div>
+    <div style={styles.container}>
+      <style>
+        {`
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+          
+          .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+          }
+          
+          .load-button:hover {
+            background-color: #5a67d8;
+            transform: translateY(-2px);
+          }
+          
+          .logout-button:hover {
+            background-color: #ff3742;
+            transform: translateY(-2px);
+          }
+        `}
+      </style>
 
-            {/* Search bar */}
-            <div className="hidden md:flex items-center space-x-4 flex-1 max-w-md mx-8">
-              <div className="relative w-full">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="Buscar..."
-                  className="w-full pl-10 pr-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                />
-              </div>
+      <header style={styles.header}>
+        <div style={styles.headerContent}>
+          <div style={styles.logo}>
+            <div style={styles.logoIcon}>🔐</div>
+            <div>
+              <div style={styles.logoText}>JWT Dashboard</div>
+              <div style={{fontSize: '0.8rem', color: '#666'}}>Panel de Acceso Seguro</div>
             </div>
+          </div>
 
-            {/* User menu */}
-            <div className="flex items-center space-x-4">
-              <button className="p-2 text-gray-400 hover:text-white transition-colors">
-                <Bell className="w-5 h-5" />
-              </button>
-              <button className="p-2 text-gray-400 hover:text-white transition-colors">
-                <Settings className="w-5 h-5" />
-              </button>
-              <div className="flex items-center space-x-3 bg-white/5 rounded-lg px-3 py-2">
-                <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center">
-                  <User className="w-4 h-4 text-white" />
-                </div>
-                <div className="hidden sm:block">
-                  <p className="text-sm font-medium text-white">{user?.name}</p>
-                  <p className="text-xs text-gray-400">{user?.email}</p>
-                </div>
-              </div>
+          <div style={styles.userInfo}>
+            <div style={styles.userAvatar}>👤</div>
+            <div style={styles.userDetails}>
+              <div style={styles.userName}>{user?.name}</div>
+              <div style={styles.userEmail}>{user?.email}</div>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Main content */}
-      <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Welcome section */}
-        <div className="mb-8">
-          <div className="backdrop-blur-xl bg-gradient-to-r from-purple-900/30 to-blue-900/30 rounded-2xl p-6 border border-white/10">
-            <div className="flex items-center justify-between">
+      <main style={styles.main}>
+        <div style={styles.welcomeCard}>
+          <div>
+            <h2 style={styles.welcomeText}>¡Bienvenido, {user?.name}! 👋</h2>
+            <p style={styles.welcomeSubtext}>
+              Acceso autenticado correctamente. Tu sesión está protegida con JWT.
+            </p>
+          </div>
+          <button
+            onClick={handleLogout}
+            style={styles.logoutButton}
+            className="logout-button"
+          >
+            <span>🔓</span>
+            <span>Cerrar Sesión</span>
+          </button>
+        </div>
+
+        <div style={styles.statsGrid}>
+          <div style={styles.statCard} className="stat-card">
+            <div style={styles.statHeader}>
               <div>
-                <h2 className="text-2xl font-bold text-white mb-2">
-                  ¡Bienvenido, {user?.name}! 👋
-                </h2>
-                <p className="text-gray-300">
-                  Acceso autenticado correctamente. Tu sesión está protegida con JWT.
-                </p>
+                <div style={styles.statTitle}>Usuarios Activos</div>
+                <div style={styles.statValue}>{stats.activeUsers}</div>
               </div>
-              <button
-                onClick={handleLogout}
-                className="flex items-center space-x-2 bg-red-500/20 hover:bg-red-500/30 text-red-300 hover:text-red-200 px-4 py-2 rounded-lg transition-all duration-300 border border-red-500/30"
-              >
-                <LogOut className="w-4 h-4" />
-                <span>Cerrar Sesión</span>
-              </button>
+              <div style={styles.statIcon}>👥</div>
+            </div>
+          </div>
+
+          <div style={styles.statCard} className="stat-card">
+            <div style={styles.statHeader}>
+              <div>
+                <div style={styles.statTitle}>Nivel de Seguridad</div>
+                <div style={{...styles.statValue, color: '#27ae60'}}>{stats.securityLevel}%</div>
+              </div>
+              <div style={styles.statIcon}>🛡️</div>
+            </div>
+          </div>
+
+          <div style={styles.statCard} className="stat-card">
+            <div style={styles.statHeader}>
+              <div>
+                <div style={styles.statTitle}>Último Acceso</div>
+                <div style={{...styles.statValue, fontSize: '1rem'}}>{stats.lastLogin}</div>
+              </div>
+              <div style={styles.statIcon}>🕒</div>
+            </div>
+          </div>
+
+          <div style={styles.statCard} className="stat-card">
+            <div style={styles.statHeader}>
+              <div>
+                <div style={styles.statTitle}>Token Expira en</div>
+                <div style={{...styles.statValue, fontSize: '1rem', color: '#f39c12'}}>{stats.tokenExpiry}</div>
+              </div>
+              <div style={styles.statIcon}>📊</div>
             </div>
           </div>
         </div>
 
-        {/* Stats grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="backdrop-blur-xl bg-white/5 rounded-xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-400 text-sm">Usuarios Activos</p>
-                <p className="text-2xl font-bold text-white">{stats.activeUsers}</p>
-              </div>
-              <Users className="w-8 h-8 text-purple-400" />
-            </div>
-          </div>
-
-          <div className="backdrop-blur-xl bg-white/5 rounded-xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-400 text-sm">Nivel de Seguridad</p>
-                <p className="text-2xl font-bold text-green-400">{stats.securityLevel}%</p>
-              </div>
-              <Shield className="w-8 h-8 text-green-400" />
-            </div>
-          </div>
-
-          <div className="backdrop-blur-xl bg-white/5 rounded-xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-400 text-sm">Último Acceso</p>
-                <p className="text-sm font-medium text-white">{stats.lastLogin}</p>
-              </div>
-              <Clock className="w-8 h-8 text-blue-400" />
-            </div>
-          </div>
-
-          <div className="backdrop-blur-xl bg-white/5 rounded-xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-400 text-sm">Token Expira en</p>
-                <p className="text-sm font-medium text-yellow-400">{stats.tokenExpiry}</p>
-              </div>
-              <Activity className="w-8 h-8 text-yellow-400" />
-            </div>
-          </div>
-        </div>
-
-        {/* Protected data section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="backdrop-blur-xl bg-white/5 rounded-xl p-6 border border-white/10">
-            <div className="flex items-center space-x-3 mb-4">
-              <Lock className="w-5 h-5 text-purple-400" />
-              <h3 className="text-lg font-semibold text-white">Datos Protegidos</h3>
-            </div>
+        <div style={styles.contentGrid}>
+          <div style={styles.contentCard}>
+            <h3 style={styles.cardTitle}>
+              <span>🔒</span>
+              Datos Protegidos
+            </h3>
             
             {loading ? (
-              <div className="flex items-center justify-center py-8">
-                <div className="w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
-              </div>
+              <div style={styles.spinner}></div>
             ) : (
-              <div className="space-y-3">
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  <span className="text-gray-300">Autenticación JWT verificada</span>
+              <div>
+                <div style={styles.checkItem}>
+                  <span style={styles.checkIcon}>✅</span>
+                  <span>Autenticación JWT verificada</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  <span className="text-gray-300">Acceso a rutas protegidas</span>
+                <div style={styles.checkItem}>
+                  <span style={styles.checkIcon}>✅</span>
+                  <span>Acceso a rutas protegidas</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  <span className="text-gray-300">Token válido y activo</span>
+                <div style={styles.checkItem}>
+                  <span style={styles.checkIcon}>✅</span>
+                  <span>Token válido y activo</span>
                 </div>
                 
                 <button
                   onClick={loadProtectedData}
-                  className="mt-4 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-4 py-2 rounded-lg transition-all duration-300 transform hover:scale-105"
+                  style={styles.loadButton}
+                  className="load-button"
                 >
                   Cargar Datos del Servidor
                 </button>
                 
                 {protectedData && (
-                  <div className="mt-4 p-3 bg-green-500/10 border border-green-500/30 rounded-lg">
-                    <p className="text-green-300 text-sm">
-                      ✅ Respuesta del servidor: {JSON.stringify(protectedData)}
-                    </p>
+                  <div style={styles.successMessage}>
+                    ✅ Respuesta del servidor: {JSON.stringify(protectedData)}
                   </div>
                 )}
               </div>
             )}
           </div>
 
-          <div className="backdrop-blur-xl bg-white/5 rounded-xl p-6 border border-white/10">
-            <div className="flex items-center space-x-3 mb-4">
-              <BarChart3 className="w-5 h-5 text-blue-400" />
-              <h3 className="text-lg font-semibold text-white">Información de Sesión</h3>
-            </div>
+          <div style={styles.contentCard}>
+            <h3 style={styles.cardTitle}>
+              <span>📊</span>
+              Información de Sesión
+            </h3>
             
-            <div className="space-y-4">
-              <div className="bg-white/5 rounded-lg p-4 border border-white/10">
-                <h4 className="text-sm font-medium text-gray-400 mb-2">Usuario Actual</h4>
-                <p className="text-white">{user?.name}</p>
-                <p className="text-gray-300 text-sm">{user?.email}</p>
+            <div style={styles.infoSection}>
+              <div style={styles.infoItem}>
+                <div style={styles.infoTitle}>Usuario Actual</div>
+                <div style={styles.infoValue}>{user?.name}</div>
+                <div style={styles.infoValue}>{user?.email}</div>
               </div>
               
-              <div className="bg-white/5 rounded-lg p-4 border border-white/10">
-                <h4 className="text-sm font-medium text-gray-400 mb-2">Estado del Token</h4>
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                  <span className="text-green-400 text-sm">Activo y válido</span>
+              <div style={styles.infoItem}>
+                <div style={styles.infoTitle}>Estado del Token</div>
+                <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+                  <div style={{width: '8px', height: '8px', backgroundColor: '#27ae60', borderRadius: '50%'}}></div>
+                  <span style={{color: '#27ae60', fontSize: '0.9rem'}}>Activo y válido</span>
                 </div>
               </div>
               
-              <div className="bg-white/5 rounded-lg p-4 border border-white/10">
-                <h4 className="text-sm font-medium text-gray-400 mb-2">Funcionalidades</h4>
-                <ul className="space-y-1 text-sm text-gray-300">
-                  <li>• Autenticación JWT</li>
-                  <li>• Rutas protegidas</li>
-                  <li>• Middleware de validación</li>
-                  <li>• Gestión de sesiones</li>
-                </ul>
+              <div style={styles.infoItem}>
+                <div style={styles.infoTitle}>Funcionalidades</div>
+                <div style={styles.infoValue}>
+                  • Autenticación JWT<br/>
+                  • Rutas protegidas<br/>
+                  • Middleware de validación<br/>
+                  • Gestión de sesiones
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Additional features section */}
-        <div className="mt-8">
-          <div className="backdrop-blur-xl bg-white/5 rounded-xl p-6 border border-white/10">
-            <h3 className="text-lg font-semibold text-white mb-4">Panel de Control</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <button className="p-4 bg-purple-500/20 hover:bg-purple-500/30 rounded-lg border border-purple-500/30 text-purple-300 hover:text-purple-200 transition-all duration-300 text-left">
-                <Users className="w-6 h-6 mb-2" />
-                <h4 className="font-medium">Gestionar Usuarios</h4>
-                <p className="text-sm opacity-80">Crear, editar y eliminar usuarios</p>
-              </button>
-              
-              <button className="p-4 bg-blue-500/20 hover:bg-blue-500/30 rounded-lg border border-blue-500/30 text-blue-300 hover:text-blue-200 transition-all duration-300 text-left">
-                <Shield className="w-6 h-6 mb-2" />
-                <h4 className="font-medium">Configuración de Seguridad</h4>
-                <p className="text-sm opacity-80">Ajustar políticas de acceso</p>
-              </button>
-              
-              <button className="p-4 bg-green-500/20 hover:bg-green-500/30 rounded-lg border border-green-500/30 text-green-300 hover:text-green-200 transition-all duration-300 text-left">
-                <Activity className="w-6 h-6 mb-2" />
-                <h4 className="font-medium">Monitoreo</h4>
-                <p className="text-sm opacity-80">Ver logs y actividad del sistema</p>
-              </button>
             </div>
           </div>
         </div>
