@@ -24,9 +24,51 @@ export const authService = {
     }
   },
 
-  async getProtectedData(token: string) {
+  async getAllUsers(token: string) {
     try {
       const response = await fetch(`${API_BASE_URL}/users`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Error al obtener usuarios:', error);
+      throw error;
+    }
+  },
+
+  async getUserById(token: string, userId: string) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/users/${userId}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Error al obtener usuario:', error);
+      throw error;
+    }
+  },
+
+  async getProtectedData(token: string) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/protected`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,

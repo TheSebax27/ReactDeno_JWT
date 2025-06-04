@@ -32,16 +32,23 @@ export const posUserLogin = async (ctx: any) => {
         response.status = 200;
         response.body = {
             success: true,
-            aceessToken: token,
+            accessToken: token,  // ✅ CORREGIDO: era "aceessToken"
             data: `${result.data.nombre} ${result.data.apellido}`
         }
         
+    } else {
+        // ✅ AGREGADO: Manejo del caso cuando las credenciales son incorrectas
+        response.status = 401;
+        response.body = {
+            success: false,
+            msg: result.msg || "Credenciales incorrectas"
+        }
     }
   } catch (error) {
-    response.status = 500,
-      response.body = {
+    response.status = 500;
+    response.body = {
         success: false,
         error: `error interno del servidor, ${error}`,
-      };
+    };
   }
 };
