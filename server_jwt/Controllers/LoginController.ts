@@ -32,12 +32,12 @@ export const posUserLogin = async (ctx: any) => {
         response.status = 200;
         response.body = {
             success: true,
-            accessToken: token,  // ✅ CORREGIDO: era "aceessToken"
+            accessToken: token, 
             data: `${result.data.nombre} ${result.data.apellido}`
         }
         
     } else {
-        // ✅ AGREGADO: Manejo del caso cuando las credenciales son incorrectas
+      
         response.status = 401;
         response.body = {
             success: false,

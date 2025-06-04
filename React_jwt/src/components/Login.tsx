@@ -29,49 +29,66 @@ export const Login = () => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      background: 'linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%)',
       padding: '1rem',
-      fontFamily: 'Arial, sans-serif'
+      fontFamily: 'Inter, system-ui, sans-serif',
+      position: 'relative' as const
+    },
+    backgroundPattern: {
+      position: 'absolute' as const,
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundImage: `
+        radial-gradient(circle at 25% 25%, rgba(220, 38, 38, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(220, 38, 38, 0.05) 0%, transparent 50%)
+      `,
+      pointerEvents: 'none'
     },
     card: {
-      backgroundColor: 'rgba(255, 255, 255, 0.95)',
-      borderRadius: '20px',
-      boxShadow: '0 25px 50px rgba(0, 0, 0, 0.25)',
-      padding: '2rem',
+      backgroundColor: 'rgba(255, 255, 255, 0.98)',
+      borderRadius: '24px',
+      boxShadow: `
+        0 32px 64px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(220, 38, 38, 0.1)
+      `,
+      padding: '3rem',
       width: '100%',
-      maxWidth: '400px',
-      backdropFilter: 'blur(10px)',
-      border: '1px solid rgba(255, 255, 255, 0.2)'
+      maxWidth: '450px',
+      backdropFilter: 'blur(20px)',
+      position: 'relative' as const,
+      zIndex: 1
     },
     header: {
       textAlign: 'center' as const,
-      marginBottom: '2rem'
+      marginBottom: '2.5rem'
     },
     logo: {
-      width: '60px',
-      height: '60px',
-      backgroundColor: '#667eea',
-      borderRadius: '50%',
-      margin: '0 auto 1rem',
+      width: '80px',
+      height: '80px',
+      background: 'linear-gradient(135deg, #dc2626, #ef4444)',
+      borderRadius: '20px',
+      margin: '0 auto 1.5rem',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       color: 'white',
-      fontSize: '24px',
-      fontWeight: 'bold'
+      fontSize: '32px',
+      fontWeight: 'bold',
+      boxShadow: '0 16px 32px rgba(220, 38, 38, 0.3)'
     },
     title: {
-      fontSize: '2rem',
-      fontWeight: 'bold',
-      color: '#333',
+      fontSize: '2.5rem',
+      fontWeight: '800',
+      color: '#000000',
       marginBottom: '0.5rem',
-      background: 'linear-gradient(135deg, #667eea, #764ba2)',
-      WebkitBackgroundClip: 'text',
-      WebkitTextFillColor: 'transparent'
+      letterSpacing: '-0.02em'
     },
     subtitle: {
-      color: '#666',
-      fontSize: '0.9rem'
+      color: '#666666',
+      fontSize: '1rem',
+      fontWeight: '500'
     },
     form: {
       display: 'flex',
@@ -83,60 +100,63 @@ export const Login = () => {
     },
     inputIcon: {
       position: 'absolute' as const,
-      left: '12px',
+      left: '16px',
       top: '50%',
       transform: 'translateY(-50%)',
-      color: '#888',
-      fontSize: '18px'
+      color: '#666666',
+      fontSize: '20px'
     },
     input: {
       width: '100%',
-      padding: '12px 12px 12px 45px',
-      border: '2px solid #e1e1e1',
-      borderRadius: '12px',
+      padding: '16px 16px 16px 52px',
+      border: '2px solid #e5e5e5',
+      borderRadius: '16px',
       fontSize: '1rem',
       outline: 'none',
-      transition: 'all 0.3s ease',
-      backgroundColor: 'rgba(255, 255, 255, 0.8)',
-      color: '#000', 
-      boxSizing: 'border-box' as const
+      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+      backgroundColor: '#ffffff',
+      color: '#000000',
+      boxSizing: 'border-box' as const,
+      fontWeight: '500'
     },
-
     inputFocus: {
-      borderColor: '#667eea',
-      boxShadow: '0 0 0 3px rgba(102, 126, 234, 0.1)'
+      borderColor: '#dc2626',
+      boxShadow: '0 0 0 4px rgba(220, 38, 38, 0.1)'
     },
     passwordToggle: {
       position: 'absolute' as const,
-      right: '12px',
+      right: '16px',
       top: '50%',
       transform: 'translateY(-50%)',
       background: 'none',
       border: 'none',
       cursor: 'pointer',
-      color: '#888',
-      fontSize: '18px',
-      padding: '4px'
+      color: '#666666',
+      fontSize: '20px',
+      padding: '8px',
+      borderRadius: '8px',
+      transition: 'all 0.2s ease'
     },
     button: {
       width: '100%',
-      padding: '14px',
-      background: 'linear-gradient(135deg, #667eea, #764ba2)',
+      padding: '18px',
+      background: 'linear-gradient(135deg, #dc2626, #ef4444)',
       color: 'white',
       border: 'none',
-      borderRadius: '12px',
-      fontSize: '1rem',
-      fontWeight: '600',
+      borderRadius: '16px',
+      fontSize: '1.1rem',
+      fontWeight: '700',
       cursor: 'pointer',
-      transition: 'all 0.3s ease',
+      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      gap: '8px'
+      gap: '10px',
+      marginTop: '1rem'
     },
     buttonHover: {
-      transform: 'translateY(-2px)',
-      boxShadow: '0 10px 25px rgba(102, 126, 234, 0.3)'
+      transform: 'translateY(-3px)',
+      boxShadow: '0 20px 40px rgba(220, 38, 38, 0.4)'
     },
     buttonDisabled: {
       opacity: 0.6,
@@ -144,25 +164,30 @@ export const Login = () => {
       transform: 'none'
     },
     error: {
-      backgroundColor: '#fee',
-      border: '1px solid #fcc',
-      color: '#c33',
-      padding: '12px',
-      borderRadius: '8px',
-      fontSize: '0.9rem',
-      marginBottom: '1rem'
+      backgroundColor: 'rgba(220, 38, 38, 0.1)',
+      border: '2px solid rgba(220, 38, 38, 0.2)',
+      color: '#dc2626',
+      padding: '16px',
+      borderRadius: '12px',
+      fontSize: '0.95rem',
+      marginBottom: '1rem',
+      fontWeight: '600',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '8px'
     },
     footer: {
-      marginTop: '1.5rem',
+      marginTop: '2rem',
       textAlign: 'center' as const,
-      color: '#888',
-      fontSize: '0.8rem'
+      color: '#888888',
+      fontSize: '0.9rem',
+      fontWeight: '500'
     },
     spinner: {
-      width: '20px',
-      height: '20px',
-      border: '2px solid rgba(255, 255, 255, 0.3)',
-      borderTop: '2px solid white',
+      width: '24px',
+      height: '24px',
+      border: '3px solid rgba(255, 255, 255, 0.3)',
+      borderTop: '3px solid white',
       borderRadius: '50%',
       animation: 'spin 1s linear infinite'
     }
@@ -170,11 +195,22 @@ export const Login = () => {
 
   return (
     <div style={styles.container}>
+      <div style={styles.backgroundPattern}></div>
       <style>
         {`
           @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+          }
+          
+          .login-input:focus {
+            border-color: #dc2626 !important;
+            box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1) !important;
+          }
+          
+          .password-toggle:hover {
+            background-color: rgba(220, 38, 38, 0.1) !important;
+            color: #dc2626 !important;
           }
         `}
       </style>
@@ -183,12 +219,13 @@ export const Login = () => {
         <div style={styles.header}>
           <div style={styles.logo}>🔐</div>
           <h1 style={styles.title}>Bienvenido</h1>
-          <p style={styles.subtitle}>Inicia sesión en tu cuenta</p>
+          <p style={styles.subtitle}>Accede a tu panel de administración</p>
         </div>
 
         {error && (
           <div style={styles.error}>
-            {error}
+            <span>⚠️</span>
+            <span>{error}</span>
           </div>
         )}
 
@@ -201,6 +238,7 @@ export const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Correo electrónico"
               style={styles.input}
+              className="login-input"
               disabled={loading}
               required
             />
@@ -213,7 +251,8 @@ export const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Contraseña"
-              style={{ ...styles.input, paddingRight: '45px' }}
+              style={{ ...styles.input, paddingRight: '52px' }}
+              className="login-input"
               disabled={loading}
               required
             />
@@ -221,6 +260,7 @@ export const Login = () => {
               type="button"
               onClick={() => setShowPassword(!showPassword)}
               style={styles.passwordToggle}
+              className="password-toggle"
               disabled={loading}
             >
               {showPassword ? '🙈' : '👁️'}
@@ -242,7 +282,7 @@ export const Login = () => {
             onMouseLeave={(e) => {
               if (!loading) {
                 e.currentTarget.style.transform = 'none';
-                e.currentTarget.style.boxShadow = 'none';
+                e.currentTarget.style.boxShadow = '0 8px 16px rgba(220, 38, 38, 0.2)';
               }
             }}
           >
@@ -261,7 +301,7 @@ export const Login = () => {
         </form>
 
         <div style={styles.footer}>
-          <p>Protegido con JWT Authentication</p>
+          <p>Protegido con autenticación JWT avanzada</p>
         </div>
       </div>
     </div>
