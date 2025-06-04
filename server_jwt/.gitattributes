@@ -1,0 +1,9 @@
+# Trata estos archivos como texto con saltos de línea LF
+*.ts text eol=lf
+*.tsx text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.md text eol=lf
+

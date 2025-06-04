@@ -1,0 +1,15 @@
+GET http://localhost:8000/users
+
+###
+POST http://localhost:8000/
+Content-Type:  application/json
+
+{
+    "email": "silvasebastian2703@gmail.com",
+    "password":"clave123"
+}
+
+###
+GET  http://localhost:8000/users
+Content-Type:"application/json"
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOjgwMDAvc2VydmVyX2p3dCIsInN1YiI6MSwianRpIjoiZjRlNzVjYjYtZGU4Mi00NGJlLWI0ZWItMzM5ZTJjODI4NWEwIiwiZXhwIjoxNzQ5MDM5NDEzfQ.HjgoJEuqmTJkkAHeq9sqXT5AksMqBcmKfsMXt5LBRL8
