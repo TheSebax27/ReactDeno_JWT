@@ -18,8 +18,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       const response = await authService.login(credentials);
       
-      if (response.success && response.aceessToken) {
-        const newToken = response.aceessToken;
+      if (response.success && response.accessToken) {
+        const newToken = response.accessToken;
         setToken(newToken);
         
         // Crear usuario con la información recibida

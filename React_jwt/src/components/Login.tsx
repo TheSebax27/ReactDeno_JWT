@@ -98,8 +98,10 @@ export const Login = () => {
       outline: 'none',
       transition: 'all 0.3s ease',
       backgroundColor: 'rgba(255, 255, 255, 0.8)',
+      color: '#000', 
       boxSizing: 'border-box' as const
     },
+
     inputFocus: {
       borderColor: '#667eea',
       boxShadow: '0 0 0 3px rgba(102, 126, 234, 0.1)'
@@ -176,7 +178,7 @@ export const Login = () => {
           }
         `}
       </style>
-      
+
       <div style={styles.card}>
         <div style={styles.header}>
           <div style={styles.logo}>🔐</div>
@@ -211,7 +213,7 @@ export const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Contraseña"
-              style={{...styles.input, paddingRight: '45px'}}
+              style={{ ...styles.input, paddingRight: '45px' }}
               disabled={loading}
               required
             />
